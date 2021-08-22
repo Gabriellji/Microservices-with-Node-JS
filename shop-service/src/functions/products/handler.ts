@@ -6,8 +6,9 @@ import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
 
-const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async () => {
   return formatJSONResponse({
+    statusCode: 200,
     result: {
       productName: 'Book',
       price: 123
@@ -15,4 +16,4 @@ const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) =
   });
 }
 
-export const main = middyfy(hello);
+export const main = middyfy(getProductsList);
