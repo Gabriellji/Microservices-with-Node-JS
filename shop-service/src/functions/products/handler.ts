@@ -1,19 +1,18 @@
 import 'source-map-support/register';
 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
-import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
+import products from '../../products.json';
 
 import schema from './schema';
 
 const getProductsList: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async () => {
-  return formatJSONResponse({
+  return {
     statusCode: 200,
-    result: {
-      productName: 'Book',
-      price: 123
-    }
-  });
+    body: JSON.stringify(
+      products.products
+    ),
+  };
 }
 
-export const main = middyfy(getProductsList);
+export const getAll = middyfy(getProductsList);
